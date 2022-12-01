@@ -14,14 +14,14 @@ def addEmployee():
 firstName = ( input("First Name: "))  
 lastName = ( input("Last Name : "))  
 address = ( input("Address : "))  
-city = ( input("City : "))  
-state = ( input("State : "))  
-zipcode = int( input("Zip Code : "))  
-phoneNumber = int( input("Phone Number : "))  
-hourlyRate = int( input("Hourly Rate : "))
-departmentName = ( input("Department Name : "))
+city = ( input("City: "))  
+state = ( input("State: "))  
+zipcode = int( input("Zip Code: "))  
+phoneNumber = int( input("Phone Number: "))  
+hourlyRate = int( input("Hourly Rate: "))
+departmentName = ( input("Department Name: "))
 employeeId=len(employeeDetails)+1
-email=firstName+lastName+".com"  
+email=firstName+lastName+"@flegelphotography.com"  
 
 employeeDetails.append({
         'employeeId':employeeId,
@@ -38,37 +38,37 @@ employeeDetails.append({
 
 def ListEmployeeById():
     for data in employeeDetails:
-        print('Employee Id :'+ str(data['employeeId']))
-        print('Email Address :'+ data['email'])
-        print('Name :'+ data['firstName']+" "+data['lastName'])
-        print('Department Name :'+ data['departmentName'])
+        print('Employee Id:'+ str(data['employeeId']))
+        print('Email Address: '+ data['email'])
+        print('Name: '+ data['firstName']+" "+data['lastName'])
+        print('Department Name: '+ data['departmentName'])
         print('\n')
 
 def ListEmployeeByName():
     for data in employeeDetails:
-        print('Name :'+ data['firstName']+" "+data['lastName'])
-        print('Address :'+ data['address'])
-        print('Phone Number :'+ str(data['phoneNumber']))
+        print('Name: '+ data['firstName']+" "+data['lastName'])
+        print('Address: '+ data['address'])
+        print('Phone Number: '+ str(data['phoneNumber']))
         print('\n')        
 
 def searchByLastName(lastName):  
     for data in employeeDetails:
-        if data['lastName']==lastName:
-            print('Employee Id :'+ str(data['employeeId']))
-            print('Name :'+ data['firstName']+" "+data['lastName'])
-            print('Address :'+ data['address'])
-            print('City :'+ data['city'])
-            print('Zip Code :'+ str(data['zipcode']))
-            print('Email Address :'+ data['email'])
-            print('Phone Number :'+ str(data['phoneNumber']))
-            print('Hourly Rate :'+ str(data['hourlyRate']))
-            print('Department Name :'+ data['departmentName'])
+        if data['lastName'].lower() == lastName.lower():
+            print('Employee Id: '+ str(data['employeeId']))
+            print('Name: '+ data['firstName']+" "+data['lastName'])
+            print('Address: '+ data['address'])
+            print('City: '+ data['city'])
+            print('Zip Code: '+ str(data['zipcode']))
+            print('Email Address: '+ data['email'])
+            print('Phone Number: '+ str(data['phoneNumber']))
+            print('Hourly Rate: '+ str(data['hourlyRate']))
+            print('Department Name: '+ data['departmentName'])
             print('\n')
 
 def updateHourlyRate(Id):  
     for data in employeeDetails:
         if data['employeeId']==Id:
-            hourlyRate = int( input("Enter Hourly Rate : "))
+            hourlyRate = int( input("Enter Hourly Rate: "))
             employeeDetails[employeeDetails.index(data)]['hourlyRate']=hourlyRate
             print("Update Successfully")
             break      
@@ -76,10 +76,10 @@ def updateHourlyRate(Id):
 def updateContactInformation(Id):  
     for data in employeeDetails:
         if data['employeeId']==Id:
-            city = ( input("Enter City Name : "))
-            address = ( input("Enter address : "))
-            zipcode = int( input("Enter zipcode : "))
-            phoneNumber = int( input("Enter phone number : "))
+            city = ( input("Enter City Name: "))
+            address = ( input("Enter address: "))
+            zipcode = int( input("Enter zipcode: "))
+            phoneNumber = int( input("Enter phone number: "))
             employeeDetails[employeeDetails.index(data)]['city']=city
             employeeDetails[employeeDetails.index(data)]['address']=address
             employeeDetails[employeeDetails.index(data)]['zipcode']=zipcode
@@ -115,38 +115,44 @@ while True:
     if choice == 1:  
         print( "\nAdd Employee\n")  
         addEmployee()  
+
     elif choice == 2:  
         print( "\nList Employee id numbers, names, email addresses, and their department name\n")  
         ListEmployeeById() 
+
     elif choice == 3:  
         print( "\nList Employee Name, Full Address & Phone Number\n")  
         ListEmployeeByName()  
-        
+
     elif choice == 4:  
         print( "\nSearch By Last Name\n")  
         lastName = ( input("Last Name: "))  
         searchByLastName(lastName)  
-  
+        
     elif choice == 5:  
         print( "\nUpdate Hourly Rate\n")  
         Id = int( input("Enter the Employee Id: "))  
-        updateHourlyRate(Id) 
-    
+        updateHourlyRate(Id)    
+
     elif choice == 6:  
         print( "\nUpdate Contact Information\n")  
         Id = int( input("Enter the Employee Id: "))  
-        updateContactInformation(Id)     
-    
+        updateContactInformation(Id)  
+          
     elif choice == 7:  
         print( "\nDelete Employee \n")  
-        Id = int( input("Enter the Employee Id: ")) 
-      # Confirm username before deleting
-      #input("\nAre you sure you want to delete [Id]?\n y for yes and n for no")
-        
-        deleteEmployee(Id)     
-    
-    elif choice == 8:  
+        Id = int( input("Enter the Employee Id: "))
+
+        # Confirm username before deleting
+        delete_confirm = input(f"\nAre you sure you want to delete Employee {Id}? [y/n]\n")
+        if delete_confirm == 'y':
+            deleteEmployee(Id)
+            print("Employee deleted")
+        else:
+            print("Employee not deleted")
+
+    elif choice == 8:
         break  
       
     else:  
-        print( "Please Provide a valid Input!")
+        print("Please Provide a valid Input!")
